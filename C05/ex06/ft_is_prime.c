@@ -6,22 +6,23 @@
 /*   By: raaribou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/25 15:14:25 by raaribou          #+#    #+#             */
-/*   Updated: 2026/07/29 20:32:06 by raaribou         ###   ########.fr       */
+/*   Updated: 2026/07/30 22:00:14 by raaribou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 int	ft_is_prime(int nb)
 {
-	int	i;
+	int	n;
 
-	i = 2;
-	if (nb < 0 || nb == 1)
+	if (nb == 2 || nb == 3)
+		return (1);
+	if (nb <= 1 || nb % 2 == 0)
 		return (0);
-	while (i * i <= nb)
+	n = 3;
+	while (n <= nb / n)
 	{
-		if (nb % i == 0)
+		if (nb % n == 0)
 			return (0);
-		i++;
+		n += 2;
 	}
 	return (1);
 }
