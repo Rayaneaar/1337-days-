@@ -1,0 +1,102 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strs_to_tab.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: raaribou <raaribou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/03 15:21:23 by raaribou          #+#    #+#             */
+/*   Updated: 2026/08/03 20:17:08 by raaribou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_stock_str.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strdup(char *str)
+{
+	int		i;
+	char	*dest;
+	int		str_len;
+
+	i = 0;
+	str_len = ft_strlen(str);
+	dest = malloc((str_len + 1) * sizeof(char));
+	if (!dest)
+		return (NULL);
+	while (str[i])
+	{
+		dest[i] = str[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+void	ft_free_tab(struct s_stock_str *tab, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		free(tab[i].copy);
+		i++;
+	}
+	free(tab);
+}
+struct s_stock_str	*ft_strs_to_tab(int ac, char **av)
+{
+	int			i;
+	int			index;
+	t_stock_str	*strs;
+
+	index = 0;
+	strs = malloc((ac + 1) * sizeof(t_stock_str));
+	if (!strs)
+		return (NULL);
+	while (index < ac)
+	{
+		i = 0;
+		strs[index].size = ft_strlen(av[index]);
+		strs[index].str = av[index][i];
+		i++;
+		strs[index].copy = ft_strdup(av[index]);
+		if (!(strs[index].copy))
+		{
+			ft_free_tab(strs, index - 1);
+			return (NULL);
+		}
+		index++;
+	}
+	strs[index][ac - 1].str = '\0';
+	return (strs);
+}
+int	main(void)
+{
+	char				*av[] = {"hello", "world", "this"};
+	int					ac;
+	struct s_stock_str	*dest;
+	int					i;
+
+	ac = 3;
+	dest = ft_strs_to_tab(ac, av);
+	i = 0;
+	while (i < ac)
+	{
+		printf("size: %d\n", dest[i].size);
+		printf("str : %s\n", dest[i].str);
+		printf("copy: %s\n", dest[i].copy);
+		i++;
+	}
+}
