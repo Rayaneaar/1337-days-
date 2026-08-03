@@ -6,7 +6,7 @@
 /*   By: raaribou <raaribou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:21:23 by raaribou          #+#    #+#             */
-/*   Updated: 2026/08/03 20:17:08 by raaribou         ###   ########.fr       */
+/*   Updated: 2026/08/03 22:32:13 by raaribou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	ft_free_tab(struct s_stock_str *tab, int count)
 }
 struct s_stock_str	*ft_strs_to_tab(int ac, char **av)
 {
-	int			i;
 	int			index;
 	t_stock_str	*strs;
 
@@ -67,19 +66,17 @@ struct s_stock_str	*ft_strs_to_tab(int ac, char **av)
 		return (NULL);
 	while (index < ac)
 	{
-		i = 0;
 		strs[index].size = ft_strlen(av[index]);
-		strs[index].str = av[index][i];
-		i++;
+		strs[index].str = av[index];
 		strs[index].copy = ft_strdup(av[index]);
 		if (!(strs[index].copy))
 		{
-			ft_free_tab(strs, index - 1);
+			ft_free_tab(strs, index);
 			return (NULL);
 		}
 		index++;
 	}
-	strs[index][ac - 1].str = '\0';
+	strs[index].str = NULL;
 	return (strs);
 }
 int	main(void)
