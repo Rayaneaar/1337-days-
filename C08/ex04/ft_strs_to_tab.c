@@ -6,12 +6,11 @@
 /*   By: raaribou <raaribou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:21:23 by raaribou          #+#    #+#             */
-/*   Updated: 2026/08/03 22:32:13 by raaribou         ###   ########.fr       */
+/*   Updated: 2026/08/03 22:54:57 by raaribou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_stock_str.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 int	ft_strlen(char *str)
@@ -43,7 +42,8 @@ char	*ft_strdup(char *str)
 	dest[i] = '\0';
 	return (dest);
 }
-void	ft_free_tab(struct s_stock_str *tab, int count)
+
+void	ft_free_tab(t_stock_str *tab, int count)
 {
 	int	i;
 
@@ -55,6 +55,7 @@ void	ft_free_tab(struct s_stock_str *tab, int count)
 	}
 	free(tab);
 }
+
 struct s_stock_str	*ft_strs_to_tab(int ac, char **av)
 {
 	int			index;
@@ -78,22 +79,4 @@ struct s_stock_str	*ft_strs_to_tab(int ac, char **av)
 	}
 	strs[index].str = NULL;
 	return (strs);
-}
-int	main(void)
-{
-	char				*av[] = {"hello", "world", "this"};
-	int					ac;
-	struct s_stock_str	*dest;
-	int					i;
-
-	ac = 3;
-	dest = ft_strs_to_tab(ac, av);
-	i = 0;
-	while (i < ac)
-	{
-		printf("size: %d\n", dest[i].size);
-		printf("str : %s\n", dest[i].str);
-		printf("copy: %s\n", dest[i].copy);
-		i++;
-	}
 }
